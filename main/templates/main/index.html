@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Main {% endblock title %}
+
+{% block content %}
+<div class="container my-5">
+    <h1 class="text-center font-italic mb-4">Parking spaces</h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 d-flex justify-content-center">
+        {% for item in object_list %}
+            <div class="card col-6 col-sm-4 mx-3">
+              <img class="card-img-top" src="/media/{{ item.img }}" style="height: 9rem;" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.name }}</h5>
+                <a href="{% if user.is_authenticated %} {% url 'reserve' item.pk %}{% else %}
+                {% url 'authentication:login' %}{% endif %}" class="btn btn-primary">Make reservation</a>
+              </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="row justify-content-center my-5">
+        <div>
+            {% if page_obj.has_previous %}
+            <span>
+                <a class="h4" href="?page={{ page_obj.previous_page_number }}">&laquo</a>
+            </span>
+            {% endif %}
+            <span class="px-3 font-italic font-weight-bold">page {{ page_obj.number }} of {{page_obj.paginator.num_pages}}</span>
+            {% if page_obj.has_next %}
+            <span>
+                <a class="h4" href="?page={{ page_obj.next_page_number }}">&raquo</a>
+            </span>
+            {%endif%}
+        </div>
+    </div>
+</div>
+{% endblock content %}
