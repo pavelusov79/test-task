@@ -1,5 +1,6 @@
 $('#id_date_field').change(function() {
-    var parking = $('h1').text();
+    var parking = window.location.pathname;
+    console.log(parking);
     var date = $(this).val();
     $.ajax({
         type: 'GET',

@@ -45,11 +45,10 @@ class EmployeeReservationListView(LoginRequiredMixin, ListView):
 def load_time(request):
     date = request.GET.get('date')
     parking = request.GET.get('parking')
-
-    time_set = Time.objects.filter(parking=int(parking.split('#')[-1]))
+    time_set = Time.objects.filter(parking=int(parking.split('/')[-2]))
     time_busy = []
     if date:
-        query = Reservation.objects.filter(date_field=date, parking=int(parking.split('#')[-1]))
+        query = Reservation.objects.filter(date_field=date, parking=int(parking.split('/')[-2]))
         for item in query:
             time_busy.append(str(item.time))
     return render(request, 'main/time_choice_list.html', {'time_set': time_set, 'time_busy': time_busy})
