@@ -1,1 +1,1 @@
-web: gunicorn fregat.wsgi --log-file - 
+web: gunicorn fregat.wsgi --log-file -
